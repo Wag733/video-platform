@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
+import {app} from './app.js'
 
 dotenv.config({
  path:'./env'
@@ -10,8 +11,17 @@ dotenv.config({
 
 
 
-
 connectDB()
+// async is returning its promise here
+.then(()=>{
+ app.listen(process.env.PORT||8000, () =>{
+  console.log(`app is listening on: ${process.env.PORT}`);
+ } )
+})
+.catch((err)=>{
+ console.log("MONGODB connection failed !!", err);
+})
+
 
 
 
